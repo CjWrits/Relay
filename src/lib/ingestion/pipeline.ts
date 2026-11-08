@@ -18,7 +18,7 @@ export class IngestionPipeline {
     projectId = 'proj-atlas-001',
     userRole: UserRole = 'ADMIN',
     fetchFn: typeof fetch = fetch,
-    options?: { forceDbFailure?: boolean }
+    options?: { forceDbFailure?: boolean; existingSourceId?: string }
   ): Promise<IngestionReport> {
     const startedAt = new Date().toISOString();
     const jobId = `job-gl-${Date.now()}`;
@@ -65,18 +65,19 @@ export class IngestionPipeline {
     }
 
     const target = validateGitLabTarget(config.projectUrlOrPath);
-    const sourceId = `src-gl-${target.projectPath?.replace(/[^a-zA-Z0-9_-]/g, '-') || 'default'}`;
+    const sourceId = options?.existingSourceId || `src-gl-${target.projectPath?.replace(/[^a-zA-Z0-9_-]/g, '-') || 'default'}`;
 
     // 3. Register or update source in store
+    const existing = ingestionStore.getSource(sourceId);
     const registeredSource: Source = {
       id: sourceId,
       projectId,
       sourceType: 'GITLAB',
-      name: `GitLab: ${target.projectPath}`,
+      name: existing?.name || `GitLab: ${target.projectPath}`,
       externalUrl: target.normalizedUrl,
-      defaultAccessLevel: config.defaultAccessLevel || 'INTERNAL',
+      defaultAccessLevel: config.defaultAccessLevel || existing?.defaultAccessLevel || 'INTERNAL',
       syncStatus: 'SYNCING',
-      activityCount: 0,
+      activityCount: existing?.activityCount || 0,
     };
     ingestionStore.addOrUpdateSource(registeredSource);
 

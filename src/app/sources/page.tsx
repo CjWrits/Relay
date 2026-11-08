@@ -51,7 +51,7 @@ export default function SourcesPage() {
   const [retryingJobId, setRetryingJobId] = useState<string | null>(null);
 
   // GitLab Form
-  const [glProjectPath, setGlProjectPath] = useState('gitlab-org/gitlab');
+  const [glProjectPath, setGlProjectPath] = useState('cjwrits/atlas');
   const [glResourceTypes, setGlResourceTypes] = useState<string[]>(['commits', 'issues', 'merge_requests', 'docs']);
   const [glAccessLevel, setGlAccessLevel] = useState<AccessLevel>('INTERNAL');
   const [glAccessToken, setGlAccessToken] = useState<string>('');
@@ -356,7 +356,16 @@ export default function SourcesPage() {
           <Info className="w-4 h-4 text-teal-700 shrink-0 mt-0.5" />
           <div>
             <strong>Demonstration Data: </strong>
-            The {sources.length} sources below represent the preloaded synthetic Meridian Project Atlas repository and architecture specifications. They provide deterministic evaluation data out-of-the-box. You can also connect an external GitLab repository or upload local markdown/text files to test live ingestion.
+            The {sources.length} sources below represent Project Atlas. The primary repository source is linked directly to live GitLab repository{' '}
+            <a
+              href="https://gitlab.com/cjwrits/atlas"
+              target="_blank"
+              rel="noreferrer"
+              className="text-teal-700 hover:text-teal-800 font-semibold underline"
+            >
+              https://gitlab.com/cjwrits/atlas
+            </a>
+            . You can click <strong>Re-sync</strong> on the card below or click <strong>Connect GitLab Project</strong> to fetch live activities directly from the repository.
           </div>
         </div>
 

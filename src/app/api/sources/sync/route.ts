@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     if (source.sourceType === 'GITLAB') {
       // Re-run GitLab ingestion
-      const path = source.name.replace(/^GitLab:\s*/, '').replace(/\s*\(Synthetic Repository\)$/, '').trim() || 'platform/atlas';
+      const path = source.name.replace(/^GitLab:\s*/, '').replace(/\s*\(Synthetic Repository\)$/, '').trim() || 'cjwrits/atlas';
       const isSynthetic = source.id.includes('synthetic') || source.externalUrl?.includes('synthetic');
 
       if (isSynthetic) {
@@ -63,14 +63,17 @@ export async function POST(req: NextRequest) {
       }
 
       // Live GitLab source re-sync
+      const targetPath = source.externalUrl || 'cjwrits/atlas';
       const report = await ingestionPipeline.ingestFromGitLab(
         {
-          projectUrlOrPath: source.externalUrl || path,
+          projectUrlOrPath: targetPath,
           resourceTypes: ['commits', 'issues', 'merge_requests', 'docs'],
           defaultAccessLevel: source.defaultAccessLevel,
         },
         source.projectId,
-        userRole as UserRole
+        userRole as UserRole,
+        fetch,
+        { existingSourceId: source.id }
       );
 
       return NextResponse.json({

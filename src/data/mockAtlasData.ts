@@ -27,7 +27,7 @@ export const ATLAS_PROJECT: Project = {
   name: 'Project Atlas (Synthetic Demo)',
   slug: 'atlas',
   description: 'Enterprise Cloud Orchestration Platform & Infrastructure Gateway (Synthetic Demonstration Environment)',
-  repositoryUrl: 'https://gitlab.internal.synthetic/platform/atlas',
+  repositoryUrl: 'https://gitlab.com/cjwrits/atlas',
   status: 'ACTIVE',
   createdAt: '2026-03-12T09:00:00Z',
   updatedAt: '2026-11-06T15:30:00Z',
@@ -108,11 +108,11 @@ export const ATLAS_SOURCES: Source[] = [
     id: 'src-gitlab-atlas',
     projectId: 'proj-atlas-001',
     sourceType: 'GITLAB',
-    name: 'GitLab: platform/atlas (Synthetic Repository)',
-    externalId: 'gitlab-synthetic-proj-4921',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas',
+    name: 'GitLab: cjwrits/atlas',
+    externalId: 'gitlab-proj-88656648',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas',
     defaultAccessLevel: 'INTERNAL',
-    lastSyncedAt: '2026-11-06T14:45:00Z',
+    lastSyncedAt: '2026-11-08T13:20:00Z',
     syncStatus: 'SUCCESS',
     activityCount: 52,
   },
@@ -164,7 +164,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-arjun-01',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-18T14:32:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/commit/7f21a0d',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/commit/7f21a0d',
   },
   {
     id: 'act-002',
@@ -177,7 +177,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-arjun-01',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-24T16:15:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/merge_requests/84',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/merge_requests/84',
   },
   {
     id: 'act-003',
@@ -190,7 +190,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-liam-05',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-24T17:40:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/merge_requests/84#note_12',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/merge_requests/84#note_12',
   },
   {
     id: 'act-004',
@@ -203,7 +203,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-elena-03',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-10T10:00:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/issues/42',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/issues/42',
   },
   {
     id: 'act-005',
@@ -216,7 +216,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-arjun-01',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-29T11:20:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/commit/e419b2c',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/commit/e419b2c',
   },
   {
     id: 'act-006',
@@ -255,7 +255,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-arjun-01',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-11-02T15:10:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/issues/91',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/issues/91',
   },
   {
     id: 'act-009',
@@ -268,7 +268,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-arjun-01',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-21T09:40:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/commit/c812d4a',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/commit/c812d4a',
   },
   {
     id: 'act-010',
@@ -281,7 +281,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-elena-03',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-19T11:00:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/issues/58',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/issues/58',
   },
   {
     id: 'act-011',
@@ -294,7 +294,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-arjun-01',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-28T16:00:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/merge_requests/92',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/merge_requests/92',
   },
   {
     id: 'act-012',
@@ -307,7 +307,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-liam-05',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-10-28T17:15:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/merge_requests/92#note_4',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/merge_requests/92#note_4',
   },
   {
     id: 'act-013',
@@ -333,7 +333,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-liam-05',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-09-14T10:00:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/commit/1a99f3b',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/commit/1a99f3b',
   },
   {
     id: 'act-015',
@@ -346,7 +346,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-elena-03',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-11-01T13:00:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/issues/103',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/issues/103',
   },
   {
     id: 'act-016',
@@ -359,7 +359,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-arjun-01',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-11-03T16:20:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/commit/d31a88b',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/commit/d31a88b',
   },
   {
     id: 'act-017',
@@ -385,7 +385,7 @@ export const ATLAS_ACTIVITIES: SourceActivity[] = [
     authorId: 'usr-liam-05',
     accessLevel: 'INTERNAL',
     activityTimestamp: '2026-11-05T14:30:00Z',
-    externalUrl: 'https://gitlab.internal.synthetic/platform/atlas/-/issues/110',
+    externalUrl: 'https://gitlab.com/cjwrits/atlas/-/issues/110',
   },
 ];
 
@@ -944,11 +944,11 @@ Arjun Mehta is rolling off Atlas as Lead Backend Engineer. This handover synthes
 
 1. **Stateless JWT with Refresh Rotation [VERIFIED - CLM-ATLAS-001]**
    - *Rationale:* Chose JWTs with 15-minute expiry and rotated refresh tokens over stateful Redis sessions to eliminate cross-region read latency on ingress edge nodes.
-   - *Supporting Evidence:* [Commit 7f21a0d](https://gitlab.internal.synthetic/platform/atlas/-/commit/7f21a0d)
+   - *Supporting Evidence:* [Commit 7f21a0d](https://gitlab.com/cjwrits/atlas/-/commit/7f21a0d)
 
 2. **Distributed Token Bucket Algorithm for Rate Limiting [VERIFIED - CLM-ATLAS-011]**
    - *Rationale:* 100-burst capacity with 20 req/s replenishment in Redis Lua script to allow client burst calls without immediate 429 throttling.
-   - *Supporting Evidence:* [Commit c812d4a](https://gitlab.internal.synthetic/platform/atlas/-/commit/c812d4a) and [Issue #58](https://gitlab.internal.synthetic/platform/atlas/-/issues/58)`,
+   - *Supporting Evidence:* [Commit c812d4a](https://gitlab.com/cjwrits/atlas/-/commit/c812d4a) and [Issue #58](https://gitlab.com/cjwrits/atlas/-/issues/58)`,
         sectionOrder: 2,
       },
       {
@@ -1089,7 +1089,7 @@ export const ATLAS_AUDIT_LOGS: AuditLogItem[] = [
     actorName: 'Marcus Vance (Admin)',
     action: 'SYNCED_SOURCE',
     entityType: 'SOURCE',
-    entityName: 'GitLab: platform/atlas',
+    entityName: 'GitLab: cjwrits/atlas',
     timestamp: '2026-11-06T14:45:00Z',
   },
   {
