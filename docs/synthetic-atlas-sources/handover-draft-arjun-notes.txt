@@ -1,0 +1,24 @@
+PROJECT ATLAS - ARJUN MEHTA HANDOVER ROUGH NOTES
+======================================================
+Author: Arjun Mehta (Lead Backend Engineer)
+Date: 2026-11-06
+Target Successor: Maya Chen
+
+1. STAGING DEPLOYMENT RUNNER GOTCHA (Line 14)
+---------------------------------------------
+The GitLab CI runner inside the staging Kubernetes cluster cannot reach the RDS database subnet directly because VPC peering was never finalized.
+Right now, staging deployment pipeline jobs only succeed because my laptop maintains an active SSH bastion tunnel to bastion.staging.internal:5432.
+Liam needs to provision VPC peering before my corporate credentials are de-provisioned, or all staging deployments will fail.
+
+2. DEAD-LETTER QUEUE MAINTENANCE GAP (Line 25)
+---------------------------------------------
+In MR #92, I created the dlq_audit_events table to capture dropped audit logs and failed notification events.
+Nobody is currently assigned to monitor or purge this table. Liam asked about it in the MR review note, but it got lost in the sprint shuffle. Someone needs to own this dead-letter queue worker.
+
+3. UNFINISHED OAUTH2 HANDLER (Line 42)
+---------------------------------------------
+MR #84 merged the skeleton for Google OAuth2 login (/auth/callback/google), but the actual callback verification, nonce check, and user record upsert in auth_identities are stubbed out with TODOs. Maya will need to complete this handler.
+
+4. DATABASE MIGRATION WARNING (Line 50)
+---------------------------------------------
+Watch out for v2.4_migration.sql! It adds a non-null constraint without DEFAULT on auth_identities. In staging it took 45 seconds on 100k rows; in production on 8M rows it will lock the table for minutes. Liam is working on splitting it.
