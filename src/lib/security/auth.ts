@@ -22,8 +22,31 @@ export const DEMO_USERS: Record<string, { person: Person; role: UserRole }> = {
   'usr-maya-02': { person: ATLAS_PEOPLE[1], role: 'INCOMING_MEMBER' },
 };
 
-// Cryptographic signing secret for synthetic demonstration sessions
-const DEMO_SESSION_SECRET = process.env.DEMO_SESSION_SECRET || 'relay_demo_session_secret_2026_codepunethinkers_final';
+// Ephemeral secret generated per-runtime for local development (not predictable from git)
+const devEphemeralSecret = crypto.randomBytes(32).toString('hex');
+
+export function getDemoSessionSecret(): string {
+  const configured = process.env.DEMO_SESSION_SECRET?.trim();
+  if (configured) {
+    return configured;
+  }
+
+  // Quarantined deterministic secret for automated test environments
+  if (isTestEnvironment()) {
+    return 'relay_test_only_session_secret_quarantined_to_tests_32chars';
+  }
+
+  // In production, fail closed if DEMO_SESSION_SECRET is missing
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error(
+      'FATAL CONFIGURATION ERROR: DEMO_SESSION_SECRET environment variable is missing in production. ' +
+      'Please configure a secure 32+ character random secret in your hosting environment.'
+    );
+  }
+
+  // In local development mode without .env, use ephemeral random secret
+  return devEphemeralSecret;
+}
 
 /**
  * Creates a cryptographically signed synthetic demo session token.
@@ -35,7 +58,7 @@ export function signDemoSession(userId: string): string {
   }
   const timestamp = Date.now();
   const payload = `${userId}:${timestamp}`;
-  const hmac = crypto.createHmac('sha256', DEMO_SESSION_SECRET).update(payload).digest('hex');
+  const hmac = crypto.createHmac('sha256', getDemoSessionSecret()).update(payload).digest('hex');
   return `demo.${userId}.${timestamp}.${hmac}`;
 }
 
@@ -62,7 +85,7 @@ export function verifyDemoSession(token: string | null | undefined): string | nu
   }
 
   const payload = `${userId}:${timestamp}`;
-  const expectedHmac = crypto.createHmac('sha256', DEMO_SESSION_SECRET).update(payload).digest('hex');
+  const expectedHmac = crypto.createHmac('sha256', getDemoSessionSecret()).update(payload).digest('hex');
 
   try {
     const sigA = Buffer.from(hmac, 'hex');
@@ -127,7 +150,8 @@ export async function getAuthenticatedSession(req?: Request): Promise<Authentica
           try {
             const { data, error } = await supabase.auth.getUser(token);
             if (!error && data?.user) {
-              const serverRole = (data.user.user_metadata?.role as UserRole) || 'INCOMING_MEMBER';
+              // Derive role strictly from trusted app_metadata (service role managed), never client-editable user_metadata
+              const serverRole = (data.user.app_metadata?.role as UserRole) || 'INCOMING_MEMBER';
               const canElevate = serverRole === 'ADMIN' || serverRole === 'REVIEWER';
               return {
                 user: {

@@ -7,8 +7,19 @@
 [![Next.js](https://img.shields.io/badge/Next.js-16.4.5-black?style=flat&logo=next.js)](https://nextjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?style=flat&logo=typescript)](https://www.typescriptlang.org)
 [![Automated Tests](https://img.shields.io/badge/Automated%20Tests-71%20Passing%20(100%25)-emerald?style=flat)](file:///tests)
-[![Evaluation Status](https://img.shields.io/badge/Evaluation%20Status-Ready%20(Zero%20Config)-teal?style=flat)](https://gitlab.com/cjwrits/relay)
+[![Live Deployment](https://img.shields.io/badge/Deployment-Live%20on%20Render-teal?style=flat)](https://relay-82oi.onrender.com/)
 [![CodePuneThinkers](https://img.shields.io/badge/Hackathon-Final%20Round-indigo?style=flat)](https://gitlab.com/cjwrits/relay)
+
+---
+
+## Live Deployment & Public Links
+
+- **Live Application URL**: [https://relay-82oi.onrender.com/](https://relay-82oi.onrender.com/)
+- **1-Click Evaluator Portal**: [https://relay-82oi.onrender.com/login](https://relay-82oi.onrender.com/login)
+- **Primary Product Repository (GitLab)**: [https://gitlab.com/cjwrits/relay](https://gitlab.com/cjwrits/relay)
+- **Public Mirror Repository (GitHub)**: [https://github.com/CjWrits/Relay](https://github.com/CjWrits/Relay)
+- **Target Atlas Demonstration Repository**: [https://gitlab.com/cjwrits/atlas](https://gitlab.com/cjwrits/atlas)
+- **Final Technical Dossier (PDF)**: [`docs/RELAY_FINAL_ROUND_DOSSIER.pdf`](docs/RELAY_FINAL_ROUND_DOSSIER.pdf)
 
 ---
 
@@ -51,7 +62,7 @@ flowchart TD
 
 ---
 
-## Quick Start (Zero-Configuration Evaluation Mode)
+## Quick Start (Zero-Configuration Local Mode)
 
 RELAY comes **preloaded with the synthetic Meridian Project Atlas dataset**. Evaluators can clone, test, build, and run the entire application locally with **zero external API keys, cloud accounts, or database setup**:
 
@@ -63,7 +74,7 @@ cd relay
 # 2. Install dependencies
 npm install
 
-# 3. Run all 62 automated test specifications (4 suites)
+# 3. Run all 71 automated test specifications (8 test suites)
 npm test
 
 # 4. Verify TypeScript and ESLint compliance (0 errors)
@@ -75,13 +86,13 @@ npm run build
 npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) or navigate directly to the live deployment at [https://relay-82oi.onrender.com/](https://relay-82oi.onrender.com/).
 
 ---
 
 ## Demonstration Accounts & First-Time Judge Experience
 
-When opening the application, visit [`/login`](http://localhost:3000/login) to explore the **1-Click Demo Login Portal**. Judges can instantly switch between three preconfigured synthetic identities:
+When opening the application, visit [`/login`](https://relay-82oi.onrender.com/login) to explore the **1-Click Demo Login Portal**. Judges can instantly switch between three preconfigured synthetic identities:
 
 | Profile | User & Role | Responsibilities & What Evaluators Can Test |
 | :--- | :--- | :--- |
@@ -93,24 +104,24 @@ When opening the application, visit [`/login`](http://localhost:3000/login) to e
 
 ## 10-Step Evaluation Walkthrough Guide
 
-Follow this guided walkthrough to independently evaluate all system capabilities:
+Follow this guided walkthrough on the live deployment [https://relay-82oi.onrender.com/](https://relay-82oi.onrender.com/) or locally:
 
 | Step | Route | What Evaluators Can Inspect |
 | :---: | :--- | :--- |
-| **1** | [`/login`](http://localhost:3000/login) | **Demo Login Portal**: One-click authentication as Marcus (Admin), Elena (Reviewer), or Maya (Incoming Member). |
-| **2** | [`/`](http://localhost:3000/) | **Continuity Dashboard**: 4-step workflow guide, explainable Continuity Score (78%), quick handover status, and critical risk radar. |
-| **3** | [`/sources`](http://localhost:3000/sources) | **Source Connectors**: 4 preloaded sources, normalized GitLab commits/MRs/issues, drag-and-drop document uploader with line-number preservation. |
-| **4** | [`/memory`](http://localhost:3000/memory) | **Project Memory Engine**: Deterministic extraction of 5 decisions, 5 tasks, 3 risks, 4 dependencies, and 3 knowledge gaps from 18 activities. |
-| **5** | [`/evidence`](http://localhost:3000/evidence) | **Evidence Ledger & Human Governance**: 3 separate verification dimensions (`evidenceValidity`, `claimVerification`, `resolutionStatus`). Reviewer conflict adjudication for SSE vs WebSockets (`CLM-ATLAS-003`) and Bloom Filter vs Postgres Timestamp (`CLM-ATLAS-009`). |
-| **6** | [`/timeline`](http://localhost:3000/timeline) | **Project Timeline**: Chronological multi-source feed with filter toggles and evidence modal inspection. |
-| **7** | [`/knowledge-graph`](http://localhost:3000/knowledge-graph) | **Ontology Knowledge Graph**: Interactive force-directed React Flow graph mapping entities, dependencies, contradictions, and module ownership. |
-| **8** | [`/handovers`](http://localhost:3000/handovers) | **Handover Studio & Review Lifecycle**: 13-section structured handover document transferring Atlas ownership from Arjun to Maya with full lifecycle controls (`DRAFT` &rarr; `UNDER_REVIEW` &rarr; `APPROVED` &rarr; `SHARED`). |
-| **9** | [`/continuation`](http://localhost:3000/continuation) | **Continuation Workspace**: Maya's Day-1 Action Radar ranking critical blockers (e.g. Liam's PR splitting `v2.4_migration.sql` to avoid table locking). Dynamic role switcher (`DEVELOPER`, `PROJECT_MANAGER`, `ADMINISTRATOR`) and persistent receipt sign-off. |
-| **10** | [`/settings/access`](http://localhost:3000/settings/access) | **RBAC Matrix & Audit Trail**: Role-based permissions breakdown and immutable audit log capturing every governance event. |
+| **1** | [`/login`](https://relay-82oi.onrender.com/login) | **Demo Login Portal**: One-click authentication as Marcus (Admin), Elena (Reviewer), or Maya (Incoming Member). Cryptographically signed HttpOnly cookie is issued. |
+| **2** | [`/`](https://relay-82oi.onrender.com/) | **Continuity Dashboard**: 4-step workflow guide, explainable Continuity Score (78%), quick handover status, and critical risk radar. |
+| **3** | [`/sources`](https://relay-82oi.onrender.com/sources) | **Source Connectors**: 4 preloaded sources, normalized GitLab commits/MRs/issues, drag-and-drop document uploader with line-number preservation. |
+| **4** | [`/memory`](https://relay-82oi.onrender.com/memory) | **Project Memory Engine**: Deterministic extraction of 5 decisions, 5 tasks, 3 risks, 4 dependencies, and 3 knowledge gaps from 18 activities. |
+| **5** | [`/evidence`](https://relay-82oi.onrender.com/evidence) | **Evidence Ledger & Human Governance**: 3 separate verification dimensions (`evidenceValidity`, `claimVerification`, `resolutionStatus`). Reviewer conflict adjudication for SSE vs WebSockets (`CLM-ATLAS-003`) and Bloom Filter vs Postgres Timestamp (`CLM-ATLAS-009`). |
+| **6** | [`/timeline`](https://relay-82oi.onrender.com/timeline) | **Project Timeline**: Chronological multi-source feed with filter toggles and evidence modal inspection. |
+| **7** | [`/knowledge-graph`](https://relay-82oi.onrender.com/knowledge-graph) | **Ontology Knowledge Graph**: Interactive force-directed React Flow graph mapping entities, dependencies, contradictions, and module ownership. |
+| **8** | [`/handovers`](https://relay-82oi.onrender.com/handovers) | **Handover Studio & Review Lifecycle**: 13-section structured handover document transferring Atlas ownership from Arjun to Maya with full lifecycle controls (`DRAFT` &rarr; `UNDER_REVIEW` &rarr; `APPROVED` &rarr; `SHARED`). |
+| **9** | [`/continuation`](https://relay-82oi.onrender.com/continuation) | **Continuation Workspace**: Maya's Day-1 Action Radar ranking critical blockers (e.g. Liam's PR splitting `v2.4_migration.sql` to avoid table locking). Dynamic role switcher (`DEVELOPER`, `PROJECT_MANAGER`, `ADMINISTRATOR`) and persistent receipt sign-off. |
+| **10** | [`/settings/access`](https://relay-82oi.onrender.com/settings/access) | **RBAC Matrix & Audit Trail**: Role-based permissions breakdown and immutable audit log capturing every governance event. |
 
 ---
 
-## Automated Test Suite (62 Passing Specifications)
+## Automated Test Suite (71 Passing Specifications)
 
 RELAY's test suite covers ingestion resilience, deterministic memory reconstruction, security authorization, evidence governance, and continuation persistence:
 
@@ -120,21 +131,28 @@ $ npm test
 ▶ Phase 1.5 Synthetic Atlas Foundation Validation (7 tests passed)
 ▶ Phase 2 Ingestion System — Automated Test Suite (15 tests passed)
 ▶ Phase 3 Intelligence & Project Memory Reconstruction (20 tests passed)
-▶ Round 3 Mandatory Improvements — Automated Test Suite (20 tests passed)
+▶ Round 3 Mandatory Improvements — Automated Test Suite (24 tests passed)
   ▶ Improvement 1: Trust & Access Control (6 tests passed)
   ▶ Improvement 2: Evidence Governance & Lifecycle (8 tests passed)
   ▶ Improvement 3: Intelligent Continuation (6 tests passed)
+  ▶ Security Verification: Cryptographic Token Signing & Rejection (4 tests passed)
+▶ End-to-End API Security & Zero-Trust Verification (5 tests passed)
+  ✔ 1. rejects unauthenticated requests to protected endpoints with HTTP 401
+  ✔ 2. sets cryptographically signed HttpOnly cookie upon login
+  ✔ 3. allows Marcus to access restricted sources using his verified signed session
+  ✔ 4. strictly blocks Maya Chen from accessing restricted sources even if she spoofs headers
+  ✔ 5. prevents double-acknowledgement from fabricating inconsistent records (idempotency)
 
-ℹ tests 62
-ℹ suites 7
-ℹ pass 62
+ℹ tests 71
+ℹ suites 8
+ℹ pass 71
 ℹ fail 0
-ℹ duration_ms ~660ms
+ℹ duration_ms ~770ms
 ```
 
 ---
 
-## Technical Specifications
+## Technical Specifications & Persistence Architecture
 
 - **Framework**: Next.js 16.4.5 (App Router, Turbopack)
 - **Language**: TypeScript 5.x (Strict typing, 0 errors)
@@ -142,5 +160,6 @@ $ npm test
 - **Visualization**: React Flow (`@xyflow/react`)
 - **Icons**: Lucide React
 - **Persistence Architecture**: Dual-mode engine supporting an in-memory deterministic simulation with persistent browser refresh resilience, and a forward-compatible Supabase PostgreSQL schema with Row Level Security (RLS) migrations.
+- **Persistence Scope Disclosure**: In demonstration mode, active state (approvals, versions, acknowledgements) is preserved in server process memory and browser session storage during evaluation. A cold server restart resets demonstration state to baseline. Multi-instance durable production persistence is designed for Supabase PostgreSQL with Row-Level Security via configured environment variables.
 - **Repository**: [https://gitlab.com/cjwrits/relay](https://gitlab.com/cjwrits/relay)
 - **License**: MIT

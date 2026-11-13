@@ -4,6 +4,7 @@
 > **Hackathon**: CodePuneThinkers — Final Evaluation Phase  
 > **Development Window**: 13 November 2026, 11:59 PM – 16 November 2026, 11:59 PM  
 > **System Status**: Feature-Complete & Fully Verified | Ready for Autonomous Judge Evaluation  
+> **Live Production Deployment**: [https://relay-82oi.onrender.com/](https://relay-82oi.onrender.com/)  
 > **Primary Product Repository**: [https://gitlab.com/cjwrits/relay](https://gitlab.com/cjwrits/relay)  
 > **Target Project Repository**: [https://gitlab.com/cjwrits/atlas](https://gitlab.com/cjwrits/atlas)  
 > **Automated Test Suite**: 71 / 71 Passing across 8 Test Suites (100% Pass Rate)  
