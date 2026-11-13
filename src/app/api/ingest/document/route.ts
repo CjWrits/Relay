@@ -1,12 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ingestionPipeline } from '@/lib/ingestion/pipeline';
 import { ProcessedDocumentInput } from '@/lib/ingestion/types';
-import { UserRole } from '@/types/relay';
+import { AccessLevel, UserRole } from '@/types/relay';
+import { getAuthenticatedSession } from '@/lib/security/auth';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getAuthenticatedSession(req);
+    if (!session.isAuthenticated || !session.role) {
+      return NextResponse.json({ error: 'Unauthorized: Authentication required. Please log in.' }, { status: 401 });
+    }
+
     const contentType = req.headers.get('content-type') || '';
-    const userRole = (req.headers.get('x-user-role') as UserRole) || 'ADMIN';
+    const userRole = session.role;
     const processedInputs: ProcessedDocumentInput[] = [];
 
     if (contentType.includes('multipart/form-data')) {
@@ -42,7 +48,7 @@ export async function POST(req: NextRequest) {
           fileName: file.name,
           fileContent: text,
           fileSizeBytes: file.size,
-          accessLevel: (formData.get('accessLevel') as any) || 'INTERNAL',
+          accessLevel: (formData.get('accessLevel') as AccessLevel) || 'INTERNAL',
         });
       }
     } else {

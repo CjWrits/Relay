@@ -15,9 +15,8 @@ import {
   Send,
   Compass,
   ShieldAlert,
-  ChevronRight,
   UserCheck,
-  Sparkles,
+  LogIn,
 } from 'lucide-react';
 
 export function Sidebar() {
@@ -31,9 +30,10 @@ export function Sidebar() {
     { name: 'Evidence Ledger', href: '/evidence', icon: FileCheck2, badge: '11 Claims' },
     { name: 'Project Timeline', href: '/timeline', icon: Clock },
     { name: 'Knowledge Graph', href: '/knowledge-graph', icon: GitGraph },
-    { name: 'Handover Studio', href: '/handovers', icon: Send, badge: '1 Draft' },
+    { name: 'Handover Studio', href: '/handovers', icon: Send, badge: '1 Package' },
     { name: 'Continuation', href: '/continuation', icon: Compass, highlight: true },
     { name: 'Access & Security', href: '/settings/access', icon: ShieldAlert },
+    { name: 'Demo Login / Switch', href: '/login', icon: LogIn },
   ];
 
   const handleRoleChange = (role: UserRole) => {

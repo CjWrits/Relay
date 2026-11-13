@@ -1,20 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ingestionStore } from '@/lib/ingestion/store';
 import { ingestionPipeline } from '@/lib/ingestion/pipeline';
-import { UserRole } from '@/types/relay';
+import { getAuthenticatedSession } from '@/lib/security/auth';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getAuthenticatedSession(req);
+    if (!session.isAuthenticated || !session.role) {
+      return NextResponse.json({ error: 'Unauthorized: Authentication required. Please log in.' }, { status: 401 });
+    }
+
     const body = await req.json();
-    const { sourceId, userRole = 'ADMIN' } = body;
+    const { sourceId } = body;
 
     if (!sourceId) {
       return NextResponse.json({ error: 'sourceId is required to re-synchronize a source.' }, { status: 400 });
     }
 
-    if (userRole !== 'ADMIN') {
+    if (session.role !== 'ADMIN') {
       return NextResponse.json(
-        { error: `Authorization denied: User role "${userRole}" lacks permissions to synchronize sources.` },
+        { error: `Authorization denied: User role "${session.role}" lacks permissions to synchronize sources.` },
         { status: 403 }
       );
     }
@@ -71,7 +76,7 @@ export async function POST(req: NextRequest) {
           defaultAccessLevel: source.defaultAccessLevel,
         },
         source.projectId,
-        userRole as UserRole,
+        session.role,
         fetch,
         { existingSourceId: source.id }
       );

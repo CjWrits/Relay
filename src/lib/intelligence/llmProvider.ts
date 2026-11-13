@@ -1,17 +1,21 @@
 import {
   NormalizedActivity,
-  ReconstructedEntity,
 } from '@/types/relay';
 import {
   AnalysisProvider,
   ExtractionOptions,
   ExtractionResult,
+  CandidateDecision,
+  CandidateTask,
+  CandidateRisk,
+  CandidateDependency,
+  CandidateKnowledgeGap,
 } from './types';
 import { deterministicAnalysisProvider } from './deterministicProvider';
 
 export class LLMAnalysisProvider implements AnalysisProvider {
   name = 'LLM-Assisted Semantic Analysis Provider';
-  providerType: 'LLM_ASSISTED' = 'LLM_ASSISTED';
+  providerType = 'LLM_ASSISTED' as const;
 
   isConfigured(): boolean {
     const geminiKey = process.env.GEMINI_API_KEY?.trim();
@@ -96,12 +100,12 @@ Output strict JSON with this exact schema:
 
       return {
         entities: baseline.entities,
-        decisions: parsed.decisions && parsed.decisions.length > 0 ? parsed.decisions : baseline.decisions,
-        tasks: parsed.tasks && parsed.tasks.length > 0 ? parsed.tasks : baseline.tasks,
-        risks: parsed.risks && parsed.risks.length > 0 ? parsed.risks : baseline.risks,
-        dependencies: parsed.dependencies && parsed.dependencies.length > 0 ? parsed.dependencies : baseline.dependencies,
+        decisions: (parsed.decisions && parsed.decisions.length > 0 ? parsed.decisions : baseline.decisions) as CandidateDecision[],
+        tasks: (parsed.tasks && parsed.tasks.length > 0 ? parsed.tasks : baseline.tasks) as CandidateTask[],
+        risks: (parsed.risks && parsed.risks.length > 0 ? parsed.risks : baseline.risks) as CandidateRisk[],
+        dependencies: (parsed.dependencies && parsed.dependencies.length > 0 ? parsed.dependencies : baseline.dependencies) as CandidateDependency[],
         ownerships: baseline.ownerships,
-        knowledgeGaps: parsed.knowledgeGaps && parsed.knowledgeGaps.length > 0 ? parsed.knowledgeGaps : baseline.knowledgeGaps,
+        knowledgeGaps: (parsed.knowledgeGaps && parsed.knowledgeGaps.length > 0 ? parsed.knowledgeGaps : baseline.knowledgeGaps) as CandidateKnowledgeGap[],
         claims: baseline.claims,
         rawAnalysisMetadata: {
           llmModel: 'gemini-1.5-flash',
@@ -129,7 +133,7 @@ Output strict JSON with this exact schema:
   /**
    * Validates that LLM output is valid JSON matching candidate extraction schema.
    */
-  validateStructuredOutput(rawOutput: string): Record<string, any[]> | null {
+  validateStructuredOutput(rawOutput: string): Record<string, unknown[]> | null {
     if (!rawOutput) return null;
 
     try {
@@ -141,12 +145,14 @@ Output strict JSON with this exact schema:
         return null;
       }
 
-      const validated: Record<string, any[]> = {};
+      const validated: Record<string, unknown[]> = {};
       const keys = ['decisions', 'tasks', 'risks', 'dependencies', 'knowledgeGaps'];
 
       for (const k of keys) {
         if (Array.isArray(obj[k])) {
-          validated[k] = obj[k].filter((item: any) => typeof item === 'object' && item !== null && item.title);
+          validated[k] = obj[k].filter(
+            (item: unknown) => typeof item === 'object' && item !== null && 'title' in item
+          );
         } else {
           validated[k] = [];
         }

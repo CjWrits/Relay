@@ -17,7 +17,7 @@ import {
 
 export class DeterministicAnalysisProvider implements AnalysisProvider {
   name = 'Deterministic Rule-Based Intelligence Engine';
-  providerType: 'DETERMINISTIC' = 'DETERMINISTIC';
+  providerType = 'DETERMINISTIC' as const;
 
   isConfigured(): boolean {
     return true; // Always operational offline without external API dependencies

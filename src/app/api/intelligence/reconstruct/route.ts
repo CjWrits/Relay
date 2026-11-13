@@ -1,15 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { memoryReconstructionService } from '@/lib/intelligence/reconstructionService';
-import { UserRole } from '@/types/relay';
+import { getAuthenticatedSession } from '@/lib/security/auth';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getAuthenticatedSession(req);
+    if (!session.isAuthenticated || !session.role) {
+      return NextResponse.json(
+        { error: 'Unauthorized: Authentication required. Please log in.' },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json().catch(() => ({}));
     const { projectId = 'proj-atlas-001', providerMode = 'DETERMINISTIC', incremental = false } = body;
-    const userRole = (req.headers.get('x-user-role') as UserRole) || body.userRole || 'ADMIN';
 
     // Only Admin or Reviewer can initiate memory reconstruction
-    if (userRole === 'INCOMING_MEMBER') {
+    if (session.role === 'INCOMING_MEMBER') {
       return NextResponse.json(
         { error: 'Authorization denied: Incoming members have read-only access and cannot trigger project memory reconstruction.' },
         { status: 403 }
@@ -17,7 +24,7 @@ export async function POST(req: NextRequest) {
     }
 
     const report = await memoryReconstructionService.reconstructProjectMemory(projectId, {
-      userRole,
+      userRole: session.role,
       providerMode,
       incremental,
     });
@@ -26,7 +33,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: report.errorMessage, report }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true, report });
+    return NextResponse.json({ success: true, report, userRole: session.role });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Internal reconstruction failure';
     return NextResponse.json({ error: message }, { status: 500 });

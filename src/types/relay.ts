@@ -2,7 +2,13 @@ export type UserRole = 'ADMIN' | 'REVIEWER' | 'INCOMING_MEMBER';
 
 export type AccessLevel = 'PUBLIC' | 'INTERNAL' | 'RESTRICTED' | 'CONFIDENTIAL';
 
+// Backward compatibility: VerificationStatus maps to ClaimVerification
 export type VerificationStatus = 'VERIFIED' | 'UNCERTAIN' | 'CONFLICTING' | 'UNVERIFIED';
+
+// Three Independent Verification Dimensions (Mandatory Improvement 2)
+export type EvidenceValidity = 'VALID' | 'INVALID' | 'INCOMPLETE';
+export type ClaimVerification = 'VERIFIED' | 'UNCERTAIN' | 'CONFLICTING' | 'UNVERIFIED';
+export type ResolutionStatus = 'RESOLVED' | 'UNRESOLVED' | 'REJECTED' | 'SUPERSEDED';
 
 export type ClaimCategory = 
   | 'DECISION' 
@@ -18,7 +24,16 @@ export type SourceType = 'GITLAB' | 'GITHUB' | 'DOCUMENT' | 'TXT_UPLOAD';
 
 export type ActivityType = 'COMMIT' | 'ISSUE' | 'MERGE_REQUEST' | 'ISSUE_COMMENT' | 'DOCUMENT_CHUNK';
 
-export type HandoverStatus = 'DRAFT' | 'IN_REVIEW' | 'APPROVED' | 'REJECTED' | 'ACKNOWLEDGED';
+// Extended Handover Lifecycle (Mandatory Improvement 2)
+export type HandoverStatus = 
+  | 'DRAFT' 
+  | 'UNDER_REVIEW' 
+  | 'IN_REVIEW' // backwards compatibility
+  | 'CHANGES_REQUESTED' 
+  | 'APPROVED' 
+  | 'SHARED' 
+  | 'ACKNOWLEDGED' 
+  | 'REJECTED';
 
 export type TargetRole = 'INCOMING_DEVELOPER' | 'PROJECT_MANAGER' | 'SECURITY_LEAD';
 
@@ -98,6 +113,14 @@ export interface Claim {
   claimText: string;
   category: ClaimCategory;
   verificationStatus: VerificationStatus;
+  // Three-dimensional verification extensions (Mandatory Improvement 2)
+  evidenceValidity?: EvidenceValidity;
+  claimVerification?: ClaimVerification;
+  resolutionStatus?: ResolutionStatus;
+  reviewerAnnotation?: string;
+  adjudicatedBy?: string;
+  adjudicatedAt?: string;
+  resolutionEvidenceActivityId?: string;
   confidenceScore: number; // 0.0 to 1.0
   inferenceType: InferenceType;
   conflictNotes?: string;
@@ -179,6 +202,31 @@ export interface HandoverVersion {
   changedByName: string;
   changeSummary: string;
   createdAt: string;
+  snapshotSections?: HandoverSection[];
+  reviewStatus?: HandoverStatus;
+  approvedBy?: string;
+  approvedAt?: string;
+}
+
+export interface HandoverAcknowledgement {
+  id: string;
+  handoverId: string;
+  versionNumber: number;
+  recipientId: string;
+  recipientName: string;
+  recipientRole: string;
+  acknowledgedAt: string;
+  comments?: string;
+  verificationFingerprint: string;
+}
+
+export interface AuthSession {
+  user: Person;
+  role: UserRole;
+  projectId: string;
+  isSyntheticDemo: boolean;
+  token?: string;
+  expiresAt: string;
 }
 
 export interface Handover {
@@ -197,6 +245,9 @@ export interface Handover {
   reviewNotes?: string;
   approvedBy?: string;
   approvedAt?: string;
+  sharedWithRecipient?: boolean;
+  sharedAt?: string;
+  acknowledgement?: HandoverAcknowledgement;
 }
 
 export interface ContinuityBreakdown {
@@ -325,6 +376,13 @@ export interface KnowledgeGap {
   impact: string;
   sourceActivityIds: string[];
   createdAt: string;
+  // Governance extensions (Improvement 2)
+  assignedOwnerId?: string;
+  assignedOwnerName?: string;
+  resolutionStatus?: 'OPEN' | 'INVESTIGATING' | 'RESOLVED' | 'ACCEPTED_RISK';
+  reviewerNotes?: string;
+  resolutionEvidence?: string;
+  resolvedAt?: string;
 }
 
 export interface AnalysisRun {

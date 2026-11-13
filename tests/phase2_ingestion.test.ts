@@ -149,7 +149,11 @@ describe('Phase 2 Ingestion System — Automated Test Suite (15 Test Specificati
 
     await assert.rejects(
       async () => {
-        const privatePaginator = (gitlabAdapter as any).fetchPaginated(
+        const privatePaginator = (
+          gitlabAdapter as unknown as {
+            fetchPaginated: (url: string, headers: Record<string, string>, limit: number, f: typeof fetch) => Promise<unknown[]>;
+          }
+        ).fetchPaginated(
           'https://gitlab.com/api/v4/projects/test/repository/commits',
           {},
           10,

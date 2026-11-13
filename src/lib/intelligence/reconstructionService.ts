@@ -183,7 +183,7 @@ export class MemoryReconstructionService {
         let canonicalRationale = cd.rationale;
         let canonicalAlternatives = cd.alternativesConsidered;
         let madeByName = cd.madeByName;
-        let decidedAt = cd.decidedAt;
+        const decidedAt = cd.decidedAt;
         let evidenceCount = cd.evidence.length;
 
         if (canonicalKey.includes('websocket') || canonicalKey.includes('server-sent events') || canonicalKey.includes('sse')) {
@@ -347,7 +347,7 @@ export class MemoryReconstructionService {
           timestamp: act.activityTimestamp,
           title: act.title,
           description: act.contentBody.slice(0, 160),
-          eventType: act.activityType as any,
+          eventType: (act.activityType === 'DOCUMENT_CHUNK' ? 'DOCUMENT' : act.activityType) as TimelineEvent['eventType'],
           authorName: act.authorName,
           sourceActivityId: act.id,
           isAnalysisInferred: false,

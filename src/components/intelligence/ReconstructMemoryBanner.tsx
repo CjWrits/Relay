@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRelay } from '@/context/RelayContext';
 import { BrainCircuit, RefreshCw, CheckCircle2, AlertTriangle, Layers, HelpCircle, ShieldCheck, Zap } from 'lucide-react';
+import type { ReconstructionReport } from '@/lib/intelligence/reconstructionService';
 
 interface ReconstructMemoryBannerProps {
   onReconstructed?: () => void;
@@ -16,7 +17,7 @@ export function ReconstructMemoryBanner({
   const { currentRole } = useRelay();
   const [isReconstructing, setIsReconstructing] = useState(false);
   const [providerMode, setProviderMode] = useState<'DETERMINISTIC' | 'LLM_ASSISTED'>('DETERMINISTIC');
-  const [lastReport, setLastReport] = useState<any>(null);
+  const [lastReport, setLastReport] = useState<ReconstructionReport | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleReconstruct = async () => {

@@ -1,11 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ingestionPipeline } from '@/lib/ingestion/pipeline';
 import { UserRole } from '@/types/relay';
+import { getAuthenticatedSession } from '@/lib/security/auth';
 
 export async function POST(req: NextRequest) {
   try {
+    const session = await getAuthenticatedSession(req);
+    if (!session.isAuthenticated || !session.role) {
+      return NextResponse.json({ error: 'Unauthorized: Authentication required. Please log in.' }, { status: 401 });
+    }
+
     const body = await req.json();
-    const { projectUrlOrPath, resourceTypes, accessLevel, userRole = 'ADMIN', accessToken } = body;
+    const { projectUrlOrPath, resourceTypes, accessLevel, accessToken } = body;
+    const effectiveRole = session.role;
+
+    if (effectiveRole === 'INCOMING_MEMBER') {
+      return NextResponse.json(
+        { error: 'Authorization denied: Incoming members cannot trigger repository ingestion.' },
+        { status: 403 }
+      );
+    }
 
     if (!projectUrlOrPath) {
       return NextResponse.json(
@@ -29,7 +43,7 @@ export async function POST(req: NextRequest) {
         accessToken: accessToken ? String(accessToken).trim() : undefined,
       },
       'proj-atlas-001',
-      userRole as UserRole
+      effectiveRole
     );
 
     if (report.status === 'FAILED') {
